@@ -1,0 +1,23 @@
+CREATE TABLE doador
+(
+    idDoador           INT             NOT NULL    AUTO_INCREMENT,
+    nome         VARCHAR(150)    NOT NULL,
+    tipo VARCHAR(15)   NOT NULL,    
+    idade INT NOT NULL,
+    sexo VARCHAR(20) NOT NULL,
+    telefone VARCHAR(14) NOT NULL,
+    rua VARCHAR(150) NOT NULL,
+    cep CHAR(9) NOT NULL,
+    cidade VARCHAR(150) NOT NULL,
+    bairro VARCHAR(150) NOT NULL,
+    num_residencia INT NOT NULL,
+    estado VARCHAR(40) NOT NULL,
+    usuario VARCHAR(150) NOT NULL,
+    senha VARCHAR(150) NOT NULL,
+    foto BLOB NOT NULL,
+    tipo_foto VARCHAR(20),
+    tipo_usuario VARCHAR(20),
+    status_doador VARCHAR(20),
+    PRIMARY KEY (`idDoador`)
+) ENGINE = InnoDB;
+

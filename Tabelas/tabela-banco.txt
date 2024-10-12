@@ -1,0 +1,19 @@
+CREATE TABLE banco
+(
+    id_banco INT NOT NULL AUTO_INCREMENT,
+    nome VARCHAR(150) NOT NULL, 
+    telefone VARCHAR(14) NOT NULL,
+    rua VARCHAR(150) NOT NULL,
+    cep CHAR(9) NOT NULL,
+    cidade VARCHAR(150) NOT NULL,
+    bairro VARCHAR(150) NOT NULL,
+    num_residencia INT NOT NULL,
+    estado CHAR(2) NOT NULL,
+    usuario VARCHAR(150) NOT NULL,
+    senha VARCHAR(150) NOT NULL,
+    statusb VARCHAR(20) NOT NULL,
+    status_banco VARCHAR(20) NOT NULL,
+    relatorio_adm VARCHAR(200),
+    PRIMARY KEY (`id_banco`)
+) ENGINE = InnoDB;
+

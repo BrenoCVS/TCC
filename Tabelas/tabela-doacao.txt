@@ -1,0 +1,17 @@
+CREATE TABLE doacao
+(
+    id_doacao INT NOT NULL AUTO_INCREMENT,
+    id_banco INT NOT NULL,
+    id_doador INT NOT NULL,
+    id_funcionario INT NOT NULL,
+    data_doacao DATE,
+    dia_doacao INT NOT NULL,
+    mes_doacao INT NOT NULL,
+    ano_doacao INT NOT NULL,
+    tipo_sanguineo VARCHAR(10),
+    exames VARCHAR(1000),
+    PRIMARY KEY (id_doacao),
+    FOREIGN KEY (id_banco) REFERENCES banco(id_banco),
+    FOREIGN KEY (id_doador) REFERENCES doador(idDoador),
+    FOREIGN KEY (id_funcionario) REFERENCES funcionario(id_funcionario)
+) ENGINE = InnoDB;
