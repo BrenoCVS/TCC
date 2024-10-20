@@ -13,6 +13,7 @@ if (autenticado()) {
     $tipo = filter_input(INPUT_POST, 'tipo', FILTER_SANITIZE_SPECIAL_CHARS);
     $modi = filter_input(INPUT_GET, 'modi', FILTER_SANITIZE_SPECIAL_CHARS);
     $pesquisa = filter_input(INPUT_POST, 'pesquisa');
+    $sangue = filter_input(INPUT_POST, 'sangue');
 
     if (empty($tipo)) {
         $tipo = "nome";
@@ -20,22 +21,41 @@ if (autenticado()) {
 
     if ($_SESSION["idDoador"] == $id) {
         //$sql = "SELECT * FROM BANCO WHERE statusb = {$tipo}";
-
-        if ($tipo == "id_doador") {
-            if (empty($pesquisa)) {
-                $sql = "SELECT * FROM doador ORDER BY idDoador ";
-                $stmt = $conn->query($sql);
-            } else {
-                $sql = "SELECT * FROM doador  WHERE idDoador = '{$pesquisa}'  ORDER BY idDoador";
-                $stmt = $conn->query($sql);
+        if (empty($sangue)) {
+            if ($tipo == "id_doador") {
+                if (empty($pesquisa)) {
+                    $sql = "SELECT * FROM doador ORDER BY idDoador ";
+                    $stmt = $conn->query($sql);
+                } else {
+                    $sql = "SELECT * FROM doador  WHERE idDoador = '{$pesquisa}'  ORDER BY idDoador";
+                    $stmt = $conn->query($sql);
+                }
+            } else if ($tipo == "nome") {
+                if (empty($pesquisa)) {
+                    $sql = "SELECT * FROM doador ORDER BY nome ";
+                    $stmt = $conn->query($sql);
+                } else {
+                    $sql = "SELECT * FROM doador WHERE nome LIKE '{$pesquisa}%' ORDER BY nome";
+                    $stmt = $conn->query($sql);
+                }
             }
-        } else if ($tipo == "nome") {
-            if (empty($pesquisa)) {
-                $sql = "SELECT * FROM doador ORDER BY nome ";
-                $stmt = $conn->query($sql);
-            } else {
-                $sql = "SELECT * FROM doador WHERE nome LIKE '{$pesquisa}%' ORDER BY nome";
-                $stmt = $conn->query($sql);
+        } else {
+            if ($tipo == "id_doador") {
+                if (empty($pesquisa)) {
+                    $sql = "SELECT * FROM doador WHERE tipo = '{$sangue}' ORDER BY idDoador ";
+                    $stmt = $conn->query($sql);
+                } else {
+                    $sql = "SELECT * FROM doador  WHERE idDoador = '{$pesquisa}' AND tipo = '{$sangue}' ORDER BY idDoador";
+                    $stmt = $conn->query($sql);
+                }
+            } else if ($tipo == "nome") {
+                if (empty($pesquisa)) {
+                    $sql = "SELECT * FROM doador WHERE tipo = '{$sangue}' ORDER BY nome ";
+                    $stmt = $conn->query($sql);
+                } else {
+                    $sql = "SELECT * FROM doador WHERE nome LIKE '{$pesquisa}%' AND tipo = '{$sangue}' ORDER BY nome";
+                    $stmt = $conn->query($sql);
+                }
             }
         }
 
@@ -63,6 +83,20 @@ if (autenticado()) {
                             <input type="text" class="form-control" id="pesquisa" name="pesquisa" placeholder="Campo de Pesquisa" <?php if (!empty($pesquisa)) {
                                                                                                                                         echo "value='$pesquisa'";
                                                                                                                                     } ?>>
+                        </div>
+                        <div class="col">
+                            <select class="form-select" name="sangue" id="sangue">
+                                <option value="">Todos tipos Sanguíneos</option>
+                                <option value="A+" <?= ($sangue == "A+")  ? " selected" : " "; ?>>A+</option>
+                                <option value="A-" <?= ($sangue == "A-")  ? " selected" : " "; ?>>A-</option>
+                                <option value="B+" <?= ($sangue == "B+")  ? " selected" : " "; ?>>B+</option>
+                                <option value="B-" <?= ($sangue == "B-")  ? " selected" : " "; ?>>B-</option>
+                                <option value="AB+" <?= ($sangue == "AB+") ? " selected" : " "; ?>>AB+</option>
+                                <option value="AB-" <?= ($sangue == "AB-") ? " selected" : " "; ?>>AB-</option>
+                                <option value="O+" <?= ($sangue == "O+")  ? " selected" : " "; ?>>O+</option>
+                                <option value="O-" <?= ($sangue == "O-")  ? " selected" : " "; ?>>O-</option>
+                            </select>
+
                         </div>
                         <div class="col">
                             <button type="submit" class="btn btn-outline-success">
@@ -95,6 +129,10 @@ if (autenticado()) {
                                 <rect width="100%" height="100%" fill="var(--bs-secondary-color)" />
                                 <br>
                                 <h5 class="fw-normal"><?= $row['nome'] ?></h5>
+                                <?php if (!empty($sangue)) {
+                                ?> <h6 class='fw-normal'>Tipo: <?= $row['tipo'] ?></h6>
+                                <?php
+                                } ?>
                                 <br><br>
                                 <p><a class="btn btn-outline-danger" href="info-doador.php?id_doador=<?= $row['idDoador'] ?>&id=<?= $id ?>">DETALHAR &raquo;</a></p>
                             </div>
@@ -109,6 +147,10 @@ if (autenticado()) {
                                 <rect width="100%" height="100%" fill="var(--bs-secondary-color)" />
                                 <br>
                                 <h5 class="fw-normal"> ID: <?= $row['idDoador'] ?></h5>
+                                <?php if (!empty($sangue)) {
+                                ?> <h6 class='fw-normal'>Tipo: <?= $row['tipo'] ?></h6>
+                                <?php
+                                } ?>
                                 <br><br>
                                 <p><a class="btn btn-outline-danger" href="info-doador.php?id_doador=<?= $row['idDoador'] ?>&id=<?= $id ?>">DETALHAR &raquo;</a></p>
                             </div>

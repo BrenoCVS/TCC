@@ -136,9 +136,21 @@ if (autenticado()) {
                             </select>
                         </div>
                         <div class="col" id="campo_pesquisa">
-                            <input type="text" class="form-control" id="pesquisa" name="pesquisa" placeholder="Campo de Pesquisa" <?php if (!empty($pesquisa)) {
-                                                                                                                                        echo "value='$pesquisa'";
-                                                                                                                                    } ?>>
+                            <?php
+                            if ($tipo != "data_doacao") {
+                            ?>
+                                <input type="text" class="form-control" id="pesquisa" name="pesquisa" placeholder="Campo de Pesquisa" <?php if (!empty($pesquisa)) {
+                                                                                                                                            echo "value='$pesquisa'";
+                                                                                                                                        } ?>>
+                            <?php
+                            } else {
+                            ?>
+                                <input type="text" class="form-control" id="pesquisa" name="pesquisa" placeholder="Campo de Pesquisa" maxlength="10" onkeypress="mascaraData( this, event )" <?php if (!empty($pesquisa)) {
+                                                                                                                                                                                                    echo "value='$pesquisa'";
+                                                                                                                                                                                                } ?>>
+                            <?php
+                            }
+                            ?>
                         </div>
                         <div class="col-sm-2">
                             <button type="submit" class="btn btn-outline-success">
@@ -160,46 +172,50 @@ if (autenticado()) {
             <br><br>
             <div class="row">
                 <?php
-                while ($row = $stmt->fetch()) {
-                    if ($tipo === "data_doacao") {
+                if ($stmt && $stmt->rowCount() > 0) {
+                    while ($row = $stmt->fetch()) {
+                        if ($tipo === "data_doacao") {
                 ?>
 
-                        <div style="border: solid black 3px; height: 290px; width: 150px; border-radius: 10%; text-align: center; margin: 1em;">
-                            <h1><i class="bi bi-droplet"></i></h1>
-                            <title>Placeholder</title>
-                            <rect width="100%" height="100%" fill="var(--bs-secondary-color)" />
-                            <br>
-                            <h5 class="fw-normal"><?= $row['data_formatada'] ?></h5>
-                            <br><br>
-                            <p><a class="btn btn-outline-danger" href="info-doacao.php?id=<?= $id ?>&id_doacao=<?= $row['id_doacao'] ?>">DETALHAR &raquo;</a></p>
-                        </div>
+                            <div style="border: solid black 3px; height: 290px; width: 150px; border-radius: 10%; text-align: center; margin: 1em;">
+                                <h1><i class="bi bi-droplet"></i></h1>
+                                <title>Placeholder</title>
+                                <rect width="100%" height="100%" fill="var(--bs-secondary-color)" />
+                                <br>
+                                <h5 class="fw-normal"><?= $row['data_formatada'] ?></h5>
+                                <br><br>
+                                <p><a class="btn btn-outline-danger" href="info-doacao.php?id=<?= $id ?>&id_doacao=<?= $row['id_doacao'] ?>">DETALHAR &raquo;</a></p>
+                            </div>
 
-                    <?php
-                    } else if ($tipo === "id_doacao") {
-                    ?>
-                        <div style="border: solid black 3px; height: 290px; width: 150px; border-radius: 10%; text-align: center; margin: 1em;">
-                            <h1><i class="bi bi-droplet"></i></h1>
-                            <title>Placeholder</title>
-                            <rect width="100%" height="100%" fill="var(--bs-secondary-color)" />
-                            <br>
-                            <h5 class="fw-normal"> ID: <?= $row['id_doacao'] ?></h5>
-                            <br><br>
-                            <p><a class="btn btn-outline-danger" href="info-doacao.php?id=<?= $id ?>&id_doacao=<?= $row['id_doacao'] ?>">DETALHAR &raquo;</a></p>
-                        </div>
-                    <?php
-                    } else if ($tipo === "nome_doador") {
-                    ?>
-                        <div style="border: solid black 3px; height: 290px; width: 150px; border-radius: 10%; text-align: center; margin: 1em;">
-                            <h1><i class="bi bi-droplet"></i></h1>
-                            <title>Placeholder</title>
-                            <rect width="100%" height="100%" fill="var(--bs-secondary-color)" />
-                            <br>
-                            <h5 class="fw-normal"> Nome: <?= $row['nome'] ?></h5>
-                            <br><br>
-                            <p><a class="btn btn-outline-danger" href="info-doacao.php?id=<?= $id ?>&id_doacao=<?= $row['id_doacao'] ?>">DETALHAR &raquo;</a></p>
-                        </div>
+                        <?php
+                        } else if ($tipo === "id_doacao") {
+                        ?>
+                            <div style="border: solid black 3px; height: 290px; width: 150px; border-radius: 10%; text-align: center; margin: 1em;">
+                                <h1><i class="bi bi-droplet"></i></h1>
+                                <title>Placeholder</title>
+                                <rect width="100%" height="100%" fill="var(--bs-secondary-color)" />
+                                <br>
+                                <h5 class="fw-normal"> ID: <?= $row['id_doacao'] ?></h5>
+                                <br><br>
+                                <p><a class="btn btn-outline-danger" href="info-doacao.php?id=<?= $id ?>&id_doacao=<?= $row['id_doacao'] ?>">DETALHAR &raquo;</a></p>
+                            </div>
+                        <?php
+                        } else if ($tipo === "nome_doador") {
+                        ?>
+                            <div style="border: solid black 3px; height: 290px; width: 150px; border-radius: 10%; text-align: center; margin: 1em;">
+                                <h1><i class="bi bi-droplet"></i></h1>
+                                <title>Placeholder</title>
+                                <rect width="100%" height="100%" fill="var(--bs-secondary-color)" />
+                                <br>
+                                <h5 class="fw-normal"> Nome: <?= $row['nome'] ?></h5>
+                                <br><br>
+                                <p><a class="btn btn-outline-danger" href="info-doacao.php?id=<?= $id ?>&id_doacao=<?= $row['id_doacao'] ?>">DETALHAR &raquo;</a></p>
+                            </div>
                 <?php
+                        }
                     }
+                } else {
+                    echo "<p>Nenhum resultado encontrado.</p>";
                 }
                 ?>
             </div>
@@ -247,7 +263,7 @@ if (autenticado()) {
         ?>
         <script>
             function campoData() {
-                document.getElementById("pesquisa").outerHTML = '<input type="text" class="form-control" id="pesquisa" name="pesquisa" placeholder="certo de Pesquisa" maxlength="10"  onkeypress="mascaraData( this, event )" >';
+                document.getElementById("pesquisa").outerHTML = '<input type="text" class="form-control" id="pesquisa" name="pesquisa" placeholder="Campo de Pesquisa" maxlength="10"  onkeypress="mascaraData( this, event )" >';
             }
 
             function campoNormal() {
