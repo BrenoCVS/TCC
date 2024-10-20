@@ -1,1 +1,3 @@
-"# TCC" 
+"Este é um Trabalho de Conclusão de Curso (TCC) realizado pelos alunos Breno Cauã Vialle da Silva, Júlia Geromello Queizada e Mariana Batista Gonçalves, do Instituto Federal de Educação, Ciência e Tecnologia de São Paulo - Campus Votuporanga.
+
+O TCC consiste em um sistema que tem como objetivo melhorar o método de cadastro de doadores de sangue. No projeto, um banco de sangue pode se cadastrar e, após ser aceito pelo administrador do sistema, pode registrar seus funcionários. Esses funcionários, por sua vez, podem cadastrar as doações realizadas no banco de sangue e buscar doadores específicos para entrar em contato."
