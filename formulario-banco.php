@@ -170,7 +170,7 @@ require "header.php";
                     <div class="col">
                         <div class="mb-3">
                             <label for="telefone" class="form-label">Telefone</label>
-                            <input type="text" name="telefone" id="telefone" placeholder="Telefone " maxlength="15" class="form-control">
+                            <input type="text" name="telefone" id="telefone" placeholder="Telefone " maxlength="15" class="form-control" required>
 
                         </div>
                     </div>
@@ -178,7 +178,7 @@ require "header.php";
                         <div class="mb-3">
                             <label for="cep" class="form-label">Cep</label>
                             <div class="input-group">
-                                <input type="text" maxlength="9" onkeyup="handleZipCode(event)" placeholder="Cep " class="form-control" name="cep" id="cep" />
+                                <input type="text" maxlength="9" onkeyup="handleZipCode(event)" placeholder="Cep " class="form-control" name="cep" id="cep" required />
                                 <button type="button" id="mostrar" onclick="buscarCep()" class="btn btn-outline-success">
                                     <i class="bi bi-search"></i>
                                 </button>
@@ -229,13 +229,13 @@ require "header.php";
                     <div class="col">
                         <div class="mb-3">
                             <label for="cidade" class="form-label">Cidade</label>
-                            <input type="text" name="cidade" id="cidade" placeholder="Cidade " class="form-control">
+                            <input type="text" name="cidade" id="cidade" placeholder="Cidade " class="form-control" required>
                         </div>
                     </div>
                     <div class="col">
                         <div class="mb-3">
                             <label for="bairro" class="form-label">Bairro</label>
-                            <input type="text" name="bairro" id="bairro" placeholder="Bairro " class="form-control">
+                            <input type="text" name="bairro" id="bairro" placeholder="Bairro " class="form-control" required>
                         </div>
                     </div>
                 </div>
@@ -244,13 +244,13 @@ require "header.php";
                     <div class="col">
                         <div class="mb-3">
                             <label for="rua" class="form-label">Logradouro</label>
-                            <input type="text" name="rua" id="rua" placeholder="Logradouro " class="form-control">
+                            <input type="text" name="rua" id="rua" placeholder="Logradouro " class="form-control" required>
                         </div>
                     </div>
                     <div class="col-3">
                         <div class="mb-3">
                             <label for="num_residencia" class="form-label">Número do Edifício</label>
-                            <input type="text" name="num_residencia" id="num_residencia" placeholder="Número da residência " class="form-control">
+                            <input type="text" name="num_residencia" id="num_residencia" placeholder="Número da residência " class="form-control" required>
                         </div>
                     </div>
                 </div>
@@ -259,7 +259,7 @@ require "header.php";
                     <div class="col">
                         <div class="mb-3">
                             <label for="email" class="form-label">E-mail</label>
-                            <input type="text" name="email" id="email" placeholder="Insira seu e-mail" class="form-control">
+                            <input type="text" name="email" id="email" placeholder="Insira seu e-mail" class="form-control" required>
                         </div>
                     </div>
                     <div class="col-3">
@@ -267,7 +267,7 @@ require "header.php";
                             <label for="senha" class="form-label">Senha</label>
 
                             <div class="input-group">
-                                <input type="password" class="form-control" id="senha" name="senha" required placeholder="Crie sua senha" aria-describedby="mostrar">
+                                <input type="password" class="form-control" id="senha" name="senha" required placeholder="Crie sua senha" aria-describedby="mostrar" required>
                                 <!-- Botão de mostrar/ocultar a senha -->
                                 <button type="button" id="mostrar" onclick="mostra()" class="btn btn-outline-secondary">
                                     <i class="bi bi-eye" id="olho"></i>
@@ -280,7 +280,7 @@ require "header.php";
                     <div class="col-3">
                         <div class="mb-3">
                             <label for="confsenha" class="form-label">Confirmação senha</label>
-                            <input type="password" class="form-control" id="confsenha" name="confsenha" required aria-describedby="confsenha confsenhaFeedback" onblur="verifica_senhas();" placeholder="Confirme sua senha ">
+                            <input type="password" class="form-control" id="confsenha" name="confsenha" required aria-describedby="confsenha confsenhaFeedback" onblur="verifica_senhas();" placeholder="Confirme sua senha " required>
                             <div id="confsenhaFeedback" class="invalid-feedback">
                                 As senhas informadas não estão iguais.
                             </div>
