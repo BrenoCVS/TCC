@@ -10,27 +10,19 @@ if (autenticado()) {
         $id = filter_input(INPUT_POST, 'id', FILTER_SANITIZE_SPECIAL_CHARS);
     }
 
-    $tipo = filter_input(INPUT_POST, 'tipo', FILTER_SANITIZE_SPECIAL_CHARS);
+    $tipo = filter_input(INPUT_GET, 'tipo', FILTER_SANITIZE_SPECIAL_CHARS);
     $modi = filter_input(INPUT_GET, 'modi', FILTER_SANITIZE_SPECIAL_CHARS);
     $pesquisa = filter_input(INPUT_POST, 'pesquisa');
     $sangue = filter_input(INPUT_POST, 'sangue');
 
     if (empty($tipo)) {
-        $tipo = "nome";
+        $tipo = "";
     }
 
     if ($_SESSION["idDoador"] == $id) {
         //$sql = "SELECT * FROM BANCO WHERE statusb = {$tipo}";
         if (empty($sangue)) {
-            if ($tipo == "id_doador") {
-                if (empty($pesquisa)) {
-                    $sql = "SELECT * FROM doador ORDER BY idDoador ";
-                    $stmt = $conn->query($sql);
-                } else {
-                    $sql = "SELECT * FROM doador  WHERE idDoador = '{$pesquisa}'  ORDER BY idDoador";
-                    $stmt = $conn->query($sql);
-                }
-            } else if ($tipo == "nome") {
+            if ($tipo == "nome") {
                 if (empty($pesquisa)) {
                     $sql = "SELECT * FROM doador ORDER BY nome ";
                     $stmt = $conn->query($sql);
@@ -40,15 +32,7 @@ if (autenticado()) {
                 }
             }
         } else {
-            if ($tipo == "id_doador") {
-                if (empty($pesquisa)) {
-                    $sql = "SELECT * FROM doador WHERE tipo = '{$sangue}' ORDER BY idDoador ";
-                    $stmt = $conn->query($sql);
-                } else {
-                    $sql = "SELECT * FROM doador  WHERE idDoador = '{$pesquisa}' AND tipo = '{$sangue}' ORDER BY idDoador";
-                    $stmt = $conn->query($sql);
-                }
-            } else if ($tipo == "nome") {
+            if ($tipo == "nome") {
                 if (empty($pesquisa)) {
                     $sql = "SELECT * FROM doador WHERE tipo = '{$sangue}' ORDER BY nome ";
                     $stmt = $conn->query($sql);
@@ -64,20 +48,12 @@ if (autenticado()) {
             <br><br>
             <div class="row">
                 <div class="col-9">
-                    <form action="?modi=0" role="search" method="POST" class="row">
+                    <form action="?modi=0&tipo=nome" role="search" method="POST" class="row">
                         <input type="hidden" name="id" value="<?= $id ?>">
-                        <label for="tipo" class="col-2">
-                            Ordenar Doadores por:
+                        <label for="tipo" class="col-3">
+                            Pesquisar Doadores por Nome:
                         </label>
-                        <div class="col-2">
-                            <select class="form-select" name="tipo" id="tipo">
 
-                                <option value="id_doador" <?php if ($tipo == "id_doador")
-                                                                echo "selected"; ?>>ID</option>
-                                <option value="nome" <?php if ($tipo == "nome")
-                                                            echo "selected"; ?>>Nome</option>
-                            </select>
-                        </div>
                         <div class="col">
 
                             <input type="text" class="form-control" id="pesquisa" name="pesquisa" placeholder="Campo de Pesquisa" <?php if (!empty($pesquisa)) {
@@ -118,47 +94,34 @@ if (autenticado()) {
             <br><br>
             <div class="row">
                 <?php
-                if ($stmt && $stmt->rowCount() > 0) {
-                    while ($row = $stmt->fetch()) {
-                        if ($tipo === "nome") {
+                if (!empty($tipo)) {
+                    if ($stmt && $stmt->rowCount() > 0) {
+                        while ($row = $stmt->fetch()) {
+                            if ($tipo === "nome") {
                 ?>
 
-                            <div style="border: solid black 3px; height: 290px; width: 150px; border-radius: 10%; text-align: center; margin: 1em;">
-                                <h1><i class="bi bi-bank"></i></h1>
-                                <title>Placeholder</title>
-                                <rect width="100%" height="100%" fill="var(--bs-secondary-color)" />
-                                <br>
-                                <h5 class="fw-normal"><?= $row['nome'] ?></h5>
-                                <?php if (!empty($sangue)) {
-                                ?> <h6 class='fw-normal'>Tipo: <?= $row['tipo'] ?></h6>
-                                <?php
-                                } ?>
-                                <br><br>
-                                <p><a class="btn btn-outline-danger" href="info-doador.php?id_doador=<?= $row['idDoador'] ?>&id=<?= $id ?>">DETALHAR &raquo;</a></p>
-                            </div>
+                                <div style="border: solid black 3px; height: 290px; width: 150px; border-radius: 10%; text-align: center; margin: 1em;">
+                                    <h1><i class="bi bi-bank"></i></h1>
+                                    <title>Placeholder</title>
+                                    <rect width="100%" height="100%" fill="var(--bs-secondary-color)" />
+                                    <br>
+                                    <h5 class="fw-normal"><?= $row['nome'] ?></h5>
+                                    <?php if (!empty($sangue)) {
+                                    ?> <h6 class='fw-normal'>Tipo: <?= $row['tipo'] ?></h6>
+                                    <?php
+                                    } ?>
+                                    <br><br>
+                                    <p><a class="btn btn-outline-danger" href="info-doador.php?id_doador=<?= $row['idDoador'] ?>&id=<?= $id ?>">DETALHAR &raquo;</a></p>
+                                </div>
 
-                        <?php
-
-                        } else if ($tipo === "id_doador") {
-                        ?>
-                            <div style="border: solid black 3px; height: 290px; width: 150px; border-radius: 10%; text-align: center; margin: 1em;">
-                                <h1><i class="bi bi-bank"></i></h1>
-                                <title>Placeholder</title>
-                                <rect width="100%" height="100%" fill="var(--bs-secondary-color)" />
-                                <br>
-                                <h5 class="fw-normal"> ID: <?= $row['idDoador'] ?></h5>
-                                <?php if (!empty($sangue)) {
-                                ?> <h6 class='fw-normal'>Tipo: <?= $row['tipo'] ?></h6>
-                                <?php
-                                } ?>
-                                <br><br>
-                                <p><a class="btn btn-outline-danger" href="info-doador.php?id_doador=<?= $row['idDoador'] ?>&id=<?= $id ?>">DETALHAR &raquo;</a></p>
-                            </div>
                 <?php
+
+
+                            }
                         }
+                    } else {
+                        echo "<p>Nenhum resultado encontrado.</p>";
                     }
-                } else {
-                    echo "<p>Nenhum resultado encontrado.</p>";
                 }
                 ?>
             </div>
