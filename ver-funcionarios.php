@@ -71,22 +71,29 @@ if (autenticado()) {
             <div class="row">
                 <?php
                 if (!empty($tipo)) {
-                    while ($row = $stmt->fetch()) {
-                        if ($tipo === "nome") {
+                    if ($stmt && $stmt->rowCount() > 0) {
+                        while ($row = $stmt->fetch()) {
+                            if ($tipo === "nome") {
                 ?>
 
-                            <div style="border: solid black 3px; height: 290px; width: 150px; border-radius: 10%; text-align: center; margin: 1em;">
-                                <h1><i class="bi bi-bank"></i></h1>
-                                <title>Placeholder</title>
-                                <rect width="100%" height="100%" fill="var(--bs-secondary-color)" />
-                                <br>
-                                <h5 class="fw-normal"><?= $row['nome'] ?></h5>
-                                <br><br>
-                                <p><a class="btn btn-outline-danger" href="info-funcionario.php?id_funcionario=<?= $row['id_funcionario'] ?>&id=<?= $id ?>">DETALHAR &raquo;</a></p>
-                            </div>
+                                <div style="border: solid black 3px; height: 290px; width: 150px; border-radius: 10%; text-align: center; margin: 1em;">
+                                    <h1><i class="bi bi-bank"></i></h1>
+                                    <title>Placeholder</title>
+                                    <rect width="100%" height="100%" fill="var(--bs-secondary-color)" />
+                                    <br>
+                                    <h5 class="fw-normal"><?= $row['nome'] ?></h5>
+                                    <br><br>
+                                    <p><a class="btn btn-outline-danger" href="info-funcionario.php?id_funcionario=<?= $row['id_funcionario'] ?>&id=<?= $id ?>">DETALHAR &raquo;</a></p>
+                                </div>
 
-                <?php
+                        <?php
+                            }
                         }
+                    } else { ?>
+                        <div style="text-align: center;">
+                            <p>Nenhum resultado encontrado.</p>
+                        </div>
+                <?php
                     }
                 }
                 ?>

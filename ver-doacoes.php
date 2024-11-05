@@ -155,11 +155,14 @@ if (autenticado()) {
                                     <h5 class="fw-normal"> Nome: <?= $row['nome'] ?></h5>
                                     <p><a class="btn btn-outline-danger" href="info-doacao.php?id=<?= $id ?>&id_doacao=<?= $row['id_doacao'] ?>">DETALHAR &raquo;</a></p>
                                 </div>
-                <?php
+                        <?php
                             }
                         }
-                    } else {
-                        echo "<p>Nenhum resultado encontrado.</p>";
+                    } else { ?>
+                        <div style="text-align: center;">
+                            <p>Nenhum resultado encontrado.</p>
+                        </div>
+                <?php
                     }
                 }
                 ?>

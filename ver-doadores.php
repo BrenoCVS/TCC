@@ -114,13 +114,16 @@ if (autenticado()) {
                                     <p><a class="btn btn-outline-danger" href="info-doador.php?id_doador=<?= $row['idDoador'] ?>&id=<?= $id ?>">DETALHAR &raquo;</a></p>
                                 </div>
 
-                <?php
+                        <?php
 
 
                             }
                         }
-                    } else {
-                        echo "<p>Nenhum resultado encontrado.</p>";
+                    } else { ?>
+                        <div style="text-align: center;">
+                            <p>Nenhum resultado encontrado.</p>
+                        </div>
+                <?php
                     }
                 }
                 ?>
