@@ -14,13 +14,15 @@ if (autenticado()) {
     $modi = filter_input(INPUT_GET, 'modi', FILTER_SANITIZE_SPECIAL_CHARS);
 
     if (!isset($tipo)) {
-        $tipo = "PENDENTE";
+        $tipo = "";
     }
 
     if ($_SESSION["idDoador"] == $id) {
         //$sql = "SELECT * FROM BANCO WHERE statusb = {$tipo}";
-        $sql = "SELECT * FROM BANCO WHERE statusb = '{$tipo}' ";
-        $stmt = $conn->query($sql);
+        if (!empty($tipo)) {
+            $sql = "SELECT * FROM BANCO WHERE statusb = '{$tipo}' ";
+            $stmt = $conn->query($sql);
+        }
 
 ?>
         <div style="margin: 30px;">
@@ -35,6 +37,8 @@ if (autenticado()) {
                         <div class="col-sm-2">
                             <select class="form-select" name="tipo" id="tipo">
 
+                                <option value="" <?php if ($tipo == "")
+                                                        echo "selected"; ?>>Selecione</option>
                                 <option value="Pendente" <?php if ($tipo == "Pendente")
                                                                 echo "selected"; ?>>Pendentes</option>
                                 <option value="Recusado" <?php if ($tipo == "Recusado")
@@ -63,21 +67,23 @@ if (autenticado()) {
 
             <div class="row">
                 <?php
-                while ($row = $stmt->fetch()) {
+                if (!empty($tipo)) {
+                    while ($row = $stmt->fetch()) {
                 ?>
 
-                    <div style="border: solid black 3px; height: 290px; width: 10em; border-radius: 10%; text-align: center; margin: 1em;">
-                        <h1><i class="bi bi-bank"></i></h1>
-                        <title>Placeholder</title>
-                        <rect width="100%" height="100%" fill="var(--bs-secondary-color)" />
-                        <br>
-                        <h5 class="fw-normal"><?= $row['nome'] ?></h5>
-                        <br><br>
-                        <p><a class="btn btn-outline-danger" href="info-banco.php?id-banco=<?= $row['id_banco'] ?>&id-adm=<?= $id ?>">DETALHAR &raquo;</a></p>
-                    </div>
+                        <div style="border: solid black 3px; height: 290px; width: 10em; border-radius: 10%; text-align: center; margin: 1em;">
+                            <h1><i class="bi bi-bank"></i></h1>
+                            <title>Placeholder</title>
+                            <rect width="100%" height="100%" fill="var(--bs-secondary-color)" />
+                            <br>
+                            <h5 class="fw-normal"><?= $row['nome'] ?></h5>
+                            <br><br>
+                            <p><a class="btn btn-outline-danger" href="info-banco.php?id-banco=<?= $row['id_banco'] ?>&id-adm=<?= $id ?>">DETALHAR &raquo;</a></p>
+                        </div>
 
                 <?php
 
+                    }
                 }
                 ?>
             </div>
