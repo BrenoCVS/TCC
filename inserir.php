@@ -1,5 +1,6 @@
 <?php
 require 'conexao.php';
+require 'pesquisa.php';
 
 $n = filter_input(INPUT_POST, 'nome', FILTER_SANITIZE_SPECIAL_CHARS);
 $tipo = filter_input(INPUT_POST, 'tipo', FILTER_SANITIZE_SPECIAL_CHARS);
@@ -17,23 +18,6 @@ $senha = filter_input(INPUT_POST, 'senha');
 $status = "ATIVO";
 
 $tipo_user = "DOADOR";
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-
-  $cookie_expire = time() + 3600;
-
-  setcookie('nome', $n, $cookie_expire);
-  setcookie('idade', $idade, $cookie_expire);
-  setcookie('email', $email, $cookie_expire);
-  setcookie('telefone', $telefone, $cookie_expire);
-  setcookie('cep', $cep, $cookie_expire);
-  setcookie('cidade', $c, $cookie_expire);
-  setcookie('bairro', $b, $cookie_expire);
-  setcookie('rua', $r, $cookie_expire);
-  setcookie('num_residencia', $num_residencia, $cookie_expire);
-  setcookie('sexo', $sexo, $cookie_expire);
-  setcookie('tipo', $tipo, $cookie_expire);
-  setcookie('estado', $estado, $cookie_expire);
-}
 
 $nome = strtoupper($n);
 $rua = strtoupper($r);

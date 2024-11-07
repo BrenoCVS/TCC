@@ -21,80 +21,67 @@ if (autenticado()) {
     $status = "ATIVO";
 
     $tipo_user = "FUNCIONARIO";
-    if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    if ($_SESSION['idDoador'] == $id) {
+        $nome = strtoupper($n);
+        $rua = strtoupper($r);
+        $cidade = strtoupper($c);
+        $bairro = strtoupper($b);
 
-        $cookie_expire = time() + 3600;
-
-        setcookie('nome', $n, $cookie_expire);
-        setcookie('idade', $idade, $cookie_expire);
-        setcookie('email', $email, $cookie_expire);
-        setcookie('telefone', $telefone, $cookie_expire);
-        setcookie('cep', $cep, $cookie_expire);
-        setcookie('cidade', $c, $cookie_expire);
-        setcookie('bairro', $b, $cookie_expire);
-        setcookie('rua', $r, $cookie_expire);
-        setcookie('num_residencia', $num_residencia, $cookie_expire);
-        setcookie('sexo', $sexo, $cookie_expire);
-        setcookie('estado', $estado, $cookie_expire);
-    }
-
-    $nome = strtoupper($n);
-    $rua = strtoupper($r);
-    $cidade = strtoupper($c);
-    $bairro = strtoupper($b);
-
-    $senha_hash = password_hash($senha, PASSWORD_BCRYPT);
+        $senha_hash = password_hash($senha, PASSWORD_BCRYPT);
 
 
 
-    // Verifique se o email já existe
+        // Verifique se o email já existe
 
-    $stmt_select2 = $conn->prepare('SELECT COUNT(*) FROM logi WHERE login_user = :login_user');
-    $stmt_select2->bindParam(':login_user', $email, PDO::PARAM_STR);
-    $stmt_select2->execute();
-    $count2 = $stmt_select2->fetchColumn();
+        $stmt_select2 = $conn->prepare('SELECT COUNT(*) FROM logi WHERE login_user = :login_user');
+        $stmt_select2->bindParam(':login_user', $email, PDO::PARAM_STR);
+        $stmt_select2->execute();
+        $count2 = $stmt_select2->fetchColumn();
 
-    if ($count2 == 0) {
-        // O email não existe, pode inserir os dados
-        $stmt_insert = $conn->prepare('INSERT INTO funcionario (id_banco, nome, tipo, idade, sexo, telefone, rua, cep, cidade, bairro, num_residencia, estado, usuario, senha, status_func) 
+        if ($count2 == 0) {
+            // O email não existe, pode inserir os dados
+            $stmt_insert = $conn->prepare('INSERT INTO funcionario (id_banco, nome, tipo, idade, sexo, telefone, rua, cep, cidade, bairro, num_residencia, estado, usuario, senha, status_func) 
                                       VALUES (:id_banco, :nome, :tipo, :idade, :sexo, :telefone, :rua, :cep, :cidade, :bairro, :num_residencia, :estado, :usuario, :senha, :status_func)');
-        // Definindo parâmetros
+            // Definindo parâmetros
 
-        $stmt_insert->bindParam(':id_banco', $id, PDO::PARAM_INT);
-        $stmt_insert->bindParam(':nome', $nome, PDO::PARAM_STR);
-        $stmt_insert->bindParam(':idade', $idade, PDO::PARAM_INT);
-        $stmt_insert->bindParam(':sexo', $sexo, PDO::PARAM_STR);
-        $stmt_insert->bindParam(':telefone', $telefone, PDO::PARAM_STR);
-        $stmt_insert->bindParam(':rua', $rua, PDO::PARAM_STR);
-        $stmt_insert->bindParam(':cep', $cep, PDO::PARAM_STR);
-        $stmt_insert->bindParam(':cidade', $cidade, PDO::PARAM_STR);
-        $stmt_insert->bindParam(':bairro', $bairro, PDO::PARAM_STR);
-        $stmt_insert->bindParam(':num_residencia', $num_residencia, PDO::PARAM_STR);
-        $stmt_insert->bindParam(':estado', $estado, PDO::PARAM_STR);
-        $stmt_insert->bindParam(':usuario', $email, PDO::PARAM_STR);
-        $stmt_insert->bindParam(':senha', $senha_hash, PDO::PARAM_STR);
-        $stmt_insert->bindParam(':tipo', $tipo_user, PDO::PARAM_STR);
-        $stmt_insert->bindParam(':status_func', $status, PDO::PARAM_STR);
+            $stmt_insert->bindParam(':id_banco', $id, PDO::PARAM_INT);
+            $stmt_insert->bindParam(':nome', $nome, PDO::PARAM_STR);
+            $stmt_insert->bindParam(':idade', $idade, PDO::PARAM_INT);
+            $stmt_insert->bindParam(':sexo', $sexo, PDO::PARAM_STR);
+            $stmt_insert->bindParam(':telefone', $telefone, PDO::PARAM_STR);
+            $stmt_insert->bindParam(':rua', $rua, PDO::PARAM_STR);
+            $stmt_insert->bindParam(':cep', $cep, PDO::PARAM_STR);
+            $stmt_insert->bindParam(':cidade', $cidade, PDO::PARAM_STR);
+            $stmt_insert->bindParam(':bairro', $bairro, PDO::PARAM_STR);
+            $stmt_insert->bindParam(':num_residencia', $num_residencia, PDO::PARAM_STR);
+            $stmt_insert->bindParam(':estado', $estado, PDO::PARAM_STR);
+            $stmt_insert->bindParam(':usuario', $email, PDO::PARAM_STR);
+            $stmt_insert->bindParam(':senha', $senha_hash, PDO::PARAM_STR);
+            $stmt_insert->bindParam(':tipo', $tipo_user, PDO::PARAM_STR);
+            $stmt_insert->bindParam(':status_func', $status, PDO::PARAM_STR);
 
-        $result = $stmt_insert->execute();
+            $result = $stmt_insert->execute();
 
-        $stmt_login = $conn->prepare('INSERT INTO logi(login_user, senha_hash, tipo) VALUES (:login_user, :senha_hash, :tipo)');
-        $stmt_login->bindParam(':login_user', $email, PDO::PARAM_STR);
-        $stmt_login->bindParam(':senha_hash', $senha_hash, PDO::PARAM_STR);
-        $stmt_login->bindParam(':tipo', $tipo_user, PDO::PARAM_STR);
+            $stmt_login = $conn->prepare('INSERT INTO logi(login_user, senha_hash, tipo) VALUES (:login_user, :senha_hash, :tipo)');
+            $stmt_login->bindParam(':login_user', $email, PDO::PARAM_STR);
+            $stmt_login->bindParam(':senha_hash', $senha_hash, PDO::PARAM_STR);
+            $stmt_login->bindParam(':tipo', $tipo_user, PDO::PARAM_STR);
 
-        $result_logi = $stmt_login->execute();
+            $result_logi = $stmt_login->execute();
 
-        if ($result) {
-            // Deu certo o insert
-            header("Location: dados_funcionario_enviados.php?id=$id");
+            if ($result) {
+                // Deu certo o insert
+                header("Location: dados_funcionario_enviados.php?id=$id");
+            } else {
+                // Não deu certo o insert, erro!
+                header("Location: dados_funcionario_nao_enviados.php?id=$id");
+            }
         } else {
-            // Não deu certo o insert, erro!
-            header("Location: dados_funcionario_nao_enviados.php?id=$id");
+            // O email já existe
+            header("Location: email_existente_funcionario.php?email=$email&id=$id");
         }
     } else {
-        // O email já existe
-        header("Location: email_existente_funcionario.php?email=$email&id=$id");
+        redireciona();
     }
 } else {
     redireciona();

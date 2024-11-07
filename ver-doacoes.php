@@ -4,6 +4,7 @@ require "logica-autenticacao.php";
 if (autenticado()) {
     require "header2.php";
     require 'conexao.php';
+    require 'pesquisa.php';
     if ($_GET['id']) {
         $id = filter_input(INPUT_GET, 'id', FILTER_SANITIZE_SPECIAL_CHARS);
     } else {
@@ -14,7 +15,7 @@ if (autenticado()) {
     $data_final = "";
     $tipo = trim(filter_input(INPUT_POST, 'tipo', FILTER_SANITIZE_SPECIAL_CHARS));
     $modi = filter_input(INPUT_GET, 'modi', FILTER_SANITIZE_SPECIAL_CHARS);
-    $pesquisa = filter_input(INPUT_POST, 'pesquisa');
+    $pesquisa = limpaPesquisa(filter_input(INPUT_POST, 'pesquisa'));
     $data_inicial = filter_input(INPUT_POST, 'data_inicial', FILTER_SANITIZE_SPECIAL_CHARS);
     $data_final = filter_input(INPUT_POST, 'data_final', FILTER_SANITIZE_SPECIAL_CHARS);
 
