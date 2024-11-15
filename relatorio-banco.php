@@ -29,7 +29,7 @@ if (autenticado()) {
                         <div class="col-6">
                             <div class="mb-3">
                                 <label for="relatorio" class="form-label">Escreva aqui o motivo do banco ser recusado:</label>
-                                <textarea type="text" name="relatorio" id="relatorio" class="form-control"></textarea>
+                                <textarea type="text" name="relatorio" id="relatorio" class="form-control" required></textarea>
                             </div>
                         </div>
 

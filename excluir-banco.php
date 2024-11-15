@@ -15,7 +15,7 @@ if (autenticado()) {
          WHERE id_banco = ?";
         $sql2 = "SELECT usuario FROM banco WHERE id_banco = ?";
         $sql3 = "DELETE FROM logi WHERE login_user = ?";
-        $sql4 = "UPDATE funcionario SET status_func = 'DESATIVADO', usuario = 'DESATIVADO', senha = 'DESATIVADO', statusb='RECUSADO'
+        $sql4 = "UPDATE funcionario SET status_func = 'DESATIVADO', usuario = 'DESATIVADO', senha = 'DESATIVADO', status_func='RECUSADO'
         WHERE id_banco = ?";
         $sql5 = "SELECT * FROM funcionario WHERE id_banco = ?";
         $stmt5 = $conn->prepare($sql5);

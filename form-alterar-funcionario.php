@@ -182,8 +182,11 @@ if (autenticado()) {
                                     <div class="col-4">
                                         <div class="mb-3">
                                             <label for="sexo" class="form-label">Sexo</label>
-                                            <input class="form-control" id="sexo" name="sexo" value=" <?= $funcionario['sexo'] ?>">
-
+                                            <select class="form-control" id="sexo" name="sexo" value="<?= $funcionario['sexo'] ?>">
+                                                <option value="NAO INFORMADO" <?= ($funcionario['sexo'] == "NAO INFORMADO")  ? " selected" : " "; ?>>Selecionar</option>
+                                                <option value="MASCULINO" <?= ($funcionario['sexo'] == "MASCULINO")  ? " selected" : " "; ?>>Masculino</option>
+                                                <option value="FEMININO" <?= ($funcionario['sexo'] == "FEMININO")  ? " selected" : " "; ?>>Feminino</option>
+                                            </select>
                                         </div>
                                     </div>
                                 </div>

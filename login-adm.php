@@ -20,7 +20,7 @@ if (autenticado()) {
     if ($_SESSION["idDoador"] == $id) {
         //$sql = "SELECT * FROM BANCO WHERE statusb = {$tipo}";
         if (!empty($tipo)) {
-            $sql = "SELECT * FROM BANCO WHERE statusb = '{$tipo}' ";
+            $sql = "SELECT * FROM BANCO WHERE statusb = '{$tipo}' AND status_banco = 'ATIVO' ";
             $stmt = $conn->query($sql);
         }
 
