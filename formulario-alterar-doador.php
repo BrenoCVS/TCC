@@ -93,6 +93,47 @@ if (autenticado()) {
                     }
                 }
             }
+
+            //API de localização
+
+            const buscarCep = async () => {
+                const cep = document.getElementById('cep').value;
+                const url = `https://brasilapi.com.br/api/cep/v1/${cep}`; // Usando crase para interpolação
+                try {
+                    const response = await fetch(url);
+
+                    if (!response.ok) {
+                        throw new Error('Network response was not ok');
+                    }
+
+
+                    const data = await response.json();
+
+                    //Preenche o campo de cidade
+                    document.getElementById('cidade').value = data.city;
+
+                    //Seleciona o estado
+                    const estadoRecebido = data.state;
+                    const selectElement = document.getElementById('estado');
+                    selectElement.value = estadoRecebido;
+
+                    try {
+                        //Preenche o Bairro, caso a api nos de o nome da rua
+                        document.getElementById('bairro').value = data.neighborhood;
+
+                        //Preenche a rua, caso a api nos de o nome da rua
+                        document.getElementById('rua').value = data.street;
+
+                    } catch (error) {
+                        console.error('Fetch error:', error);
+
+                    }
+
+                    console.log(data);
+                } catch (error) {
+                    console.error('Fetch error:', error);
+                }
+            };
         </script>
 
         <main>
@@ -168,7 +209,12 @@ if (autenticado()) {
                             <div class="col">
                                 <div class="mb-3">
                                     <label for="cep" class="form-label">Cep</label>
-                                    <input type="text" maxlength="9" onkeyup="handleZipCode(event)" placeholder="Cep " class="form-control" name="cep" id="cep" value="<?= $row['cep'] ?>">
+                                    <div class="input-group">
+                                        <input type="text" maxlength="9" onkeyup="handleZipCode(event)" placeholder="Cep " class="form-control" name="cep" id="cep" value="<?= $row['cep'] ?>" />
+                                        <button type="button" id="mostrar" onclick="buscarCep()" class="btn btn-outline-success">
+                                            <i class="bi bi-search"></i>
+                                        </button>
+                                    </div>
                                 </div>
                             </div>
                             <div class="col">

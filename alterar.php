@@ -12,17 +12,16 @@
         $logi = filter_input(INPUT_POST, 'logi', FILTER_SANITIZE_EMAIL);
         if ($user == 1) {
             //doador    
-
-            $nome = filter_input(INPUT_POST, 'nome', FILTER_SANITIZE_SPECIAL_CHARS);
+            $nome = strtoupper(filter_input(INPUT_POST, 'nome', FILTER_SANITIZE_SPECIAL_CHARS));
             $foto = filter_input(INPUT_POST, 'foto');
             $tipo = filter_input(INPUT_POST, 'tipo', FILTER_SANITIZE_SPECIAL_CHARS);
-            $idade = filter_input(INPUT_POST, 'idade', FILTER_SANITIZE_SPECIAL_CHARS);
+            $idade = strtoupper(filter_input(INPUT_POST, 'idade', FILTER_SANITIZE_SPECIAL_CHARS));
             $sexo = filter_input(INPUT_POST, 'sexo', FILTER_SANITIZE_SPECIAL_CHARS);
             $telefone = filter_input(INPUT_POST, 'telefone', FILTER_SANITIZE_SPECIAL_CHARS);
-            $rua = filter_input(INPUT_POST, 'rua', FILTER_SANITIZE_SPECIAL_CHARS);
+            $rua = strtoupper(filter_input(INPUT_POST, 'rua', FILTER_SANITIZE_SPECIAL_CHARS));
             $cep = filter_input(INPUT_POST, 'cep', FILTER_SANITIZE_SPECIAL_CHARS);
-            $cidade = filter_input(INPUT_POST, 'cidade', FILTER_SANITIZE_SPECIAL_CHARS);
-            $bairro = filter_input(INPUT_POST, 'bairro', FILTER_SANITIZE_SPECIAL_CHARS);
+            $cidade = strtoupper(filter_input(INPUT_POST, 'cidade', FILTER_SANITIZE_SPECIAL_CHARS));
+            $bairro = strtoupper(filter_input(INPUT_POST, 'bairro', FILTER_SANITIZE_SPECIAL_CHARS));
             $num_residencia = filter_input(INPUT_POST, 'num_residencia', FILTER_SANITIZE_SPECIAL_CHARS);
             $estado = filter_input(INPUT_POST, 'estado', FILTER_SANITIZE_SPECIAL_CHARS);
             $email = filter_input(INPUT_POST, 'email', FILTER_SANITIZE_EMAIL);
@@ -110,12 +109,12 @@
             }
         } else if ($user == 2) {
             //banco
-            $n = filter_input(INPUT_POST, 'nome', FILTER_SANITIZE_SPECIAL_CHARS);
+            $n = strtoUpper(filter_input(INPUT_POST, 'nome', FILTER_SANITIZE_SPECIAL_CHARS));
             $telefone = filter_input(INPUT_POST, 'telefone', FILTER_SANITIZE_SPECIAL_CHARS);
-            $r = filter_input(INPUT_POST, 'rua', FILTER_SANITIZE_SPECIAL_CHARS);
+            $r = strtoUpper(filter_input(INPUT_POST, 'rua', FILTER_SANITIZE_SPECIAL_CHARS));
             $cep = filter_input(INPUT_POST, 'cep', FILTER_SANITIZE_SPECIAL_CHARS);
-            $c = filter_input(INPUT_POST, 'cidade', FILTER_SANITIZE_SPECIAL_CHARS);
-            $b = filter_input(INPUT_POST, 'bairro', FILTER_SANITIZE_SPECIAL_CHARS);
+            $c = strtoUpper(filter_input(INPUT_POST, 'cidade', FILTER_SANITIZE_SPECIAL_CHARS));
+            $b = strtoUpper(filter_input(INPUT_POST, 'bairro', FILTER_SANITIZE_SPECIAL_CHARS));
             $num_residencia = filter_input(INPUT_POST, 'num_residencia', FILTER_SANITIZE_SPECIAL_CHARS);
             $estado = filter_input(INPUT_POST, 'estado', FILTER_SANITIZE_SPECIAL_CHARS);
             $email = filter_input(INPUT_POST, 'email', FILTER_SANITIZE_EMAIL);
@@ -166,14 +165,14 @@
         } else if ($user == 3) {
             //funcionario
 
-            $n = filter_input(INPUT_POST, 'nome', FILTER_SANITIZE_SPECIAL_CHARS);
+            $n = strtoUpper(filter_input(INPUT_POST, 'nome', FILTER_SANITIZE_SPECIAL_CHARS));
             $idade = filter_input(INPUT_POST, 'idade', FILTER_SANITIZE_SPECIAL_CHARS);
             $sexo = filter_input(INPUT_POST, 'sexo', FILTER_SANITIZE_SPECIAL_CHARS);
             $telefone = filter_input(INPUT_POST, 'telefone', FILTER_SANITIZE_SPECIAL_CHARS);
-            $r = filter_input(INPUT_POST, 'rua', FILTER_SANITIZE_SPECIAL_CHARS);
+            $r = strtoUpper(filter_input(INPUT_POST, 'rua', FILTER_SANITIZE_SPECIAL_CHARS));
             $cep = filter_input(INPUT_POST, 'cep', FILTER_SANITIZE_SPECIAL_CHARS);
-            $c = filter_input(INPUT_POST, 'cidade', FILTER_SANITIZE_SPECIAL_CHARS);
-            $b = filter_input(INPUT_POST, 'bairro', FILTER_SANITIZE_SPECIAL_CHARS);
+            $c = strtoUpper(filter_input(INPUT_POST, 'cidade', FILTER_SANITIZE_SPECIAL_CHARS));
+            $b = strtoUpper(filter_input(INPUT_POST, 'bairro', FILTER_SANITIZE_SPECIAL_CHARS));
             $num_residencia = filter_input(INPUT_POST, 'num_residencia', FILTER_SANITIZE_SPECIAL_CHARS);
             $estado = filter_input(INPUT_POST, 'estado', FILTER_SANITIZE_SPECIAL_CHARS);
             $email = filter_input(INPUT_POST, 'email', FILTER_SANITIZE_EMAIL);

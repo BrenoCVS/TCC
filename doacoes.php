@@ -146,7 +146,7 @@ if (autenticado()) {
 
 
 
-            <a href="login_sucesso.php?id=<?= $id ?>"><button class="btn btn-primary">Voltar</button></a>
+            <a href="login_sucesso.php?id=<?= $id ?>"><button class="btn btn-danger">Voltar</button></a>
             <br><br>
 
     <?php

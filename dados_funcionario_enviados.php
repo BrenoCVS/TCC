@@ -15,11 +15,20 @@ $id = filter_input(INPUT_GET, 'id');
         <br><br><br>
         <div class="alert alert-success row-8" role="alert">
             <h4>Dados enviados com sucesso!</h4>
-
         </div>
+        <br><br>
+        <a href="inicio-banco.php?id=<?= $id ?>" class="link-danger">
+            <button type="button" class="btn btn-danger">
+                <p class="float-end">
+
+                    Voltar para a página Inicial do Banco
+
+                </p>
+            </button>
+        </a>
     </div>
 
 
     <?php
-    require "footer_inicio_banco.php";
+    require "footer.php";
     ?>

@@ -18,9 +18,19 @@ $errorArray = $stmt->errorInfo();
             <h4>Erro ao enviar dados!</h4>
             <p><?= $errorArray[2]; ?></p>
         </div>
+        <br><br>
+        <a href="formulario-cadastrar-funcionario.php?id=<?= $id ?>" class="link-danger">
+            <button type="button" class="btn btn-danger">
+                <p class="float-end">
+
+                    Voltar para o formulário do Funcionário
+
+                </p>
+            </button>
+        </a>
     </div>
 
 
     <?php
-    require "footer_formulario_funcionario.php";
+    require "footer.php";
     ?>

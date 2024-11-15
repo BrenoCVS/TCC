@@ -1,6 +1,6 @@
 <?php
 $header = 1;
-require "header.php";
+require "header2.php";
 
 require 'conexao.php';
 

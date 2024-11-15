@@ -110,7 +110,7 @@ if (autenticado()) {
                                     ?> <h6 class='fw-normal'>Tipo: <?= $row['tipo'] ?></h6>
                                     <?php
                                     } ?>
-                                    <br><br>
+
                                     <p><a class="btn btn-outline-danger" href="info-doador.php?id_doador=<?= $row['idDoador'] ?>&id=<?= $id ?>">DETALHAR &raquo;</a></p>
                                 </div>
 

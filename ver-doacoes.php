@@ -26,25 +26,45 @@ if (autenticado()) {
     if ($_SESSION["idDoador"] == $id) {
         if ($tipo == "data_doacao") {
             if (empty($data_inicial) && empty($data_final)) {
-                $sql = "SELECT d.id_doacao, d.id_banco, d.id_doador, 
-                        DATE_FORMAT(d.data_doacao, '%d/%m/%Y') AS data_formatada
-                        FROM doacao d
-                        JOIN funcionario f ON d.id_funcionario = f.id_funcionario
-                        WHERE f.id_funcionario = :id_funcionario
-                        ORDER BY d.{$tipo}";
+                $sql = "SELECT 
+                            d.id_doacao, 
+                            d.id_banco, 
+                            d.id_doador, 
+                            do.nome AS nome_doador,
+                            DATE_FORMAT(d.data_doacao, '%d/%m/%Y') AS data_formatada
+                        FROM 
+                            doacao d
+                        JOIN 
+                            funcionario f ON d.id_funcionario = f.id_funcionario
+                        JOIN 
+                            doador do ON d.id_doador = do.idDoador
+                        WHERE 
+                            f.id_funcionario = :id_funcionario 
+                        ORDER BY 
+                            d.{$tipo};";
                 $stmt = $conn->prepare($sql);
                 $stmt->execute(['id_funcionario' => $id]);
             } else {
                 $data_inicial_formatada = date('Y-m-d', strtotime(str_replace('/', '-', $data_inicial)));
                 $data_final_formatada = date('Y-m-d', strtotime(str_replace('/', '-', $data_final)));
 
-                $sql = "SELECT d.id_doacao, d.id_banco, d.id_doador, 
-                        DATE_FORMAT(d.data_doacao, '%d/%m/%Y') AS data_formatada
-                        FROM doacao d
-                        JOIN funcionario f ON d.id_funcionario = f.id_funcionario
-                        WHERE f.id_funcionario = :id_funcionario 
-                        AND d.data_doacao BETWEEN :data_inicial AND :data_final
-                        ORDER BY d.{$tipo}";
+                $sql = "SELECT 
+                            d.id_doacao, 
+                            d.id_banco, 
+                            d.id_doador, 
+                            do.nome AS nome_doador,
+                            DATE_FORMAT(d.data_doacao, '%d/%m/%Y') AS data_formatada
+                        FROM 
+                            doacao d
+                        JOIN 
+                            funcionario f ON d.id_funcionario = f.id_funcionario
+                        JOIN 
+                            doador do ON d.id_doador = do.idDoador
+                        WHERE 
+                            f.id_funcionario = :id_funcionario 
+                            AND d.data_doacao BETWEEN :data_inicial AND :data_final
+                        ORDER BY 
+                            d.{$tipo};";
 
                 $stmt = $conn->prepare($sql);
                 $stmt->execute([
@@ -55,7 +75,8 @@ if (autenticado()) {
             }
         } else if ($tipo == "nome_doador") {
             if (empty($pesquisa)) {
-                $sql_donacoes = "SELECT d.id_doacao, d.data_doacao, dd.nome 
+                $sql_donacoes = "SELECT d.id_doacao, d.data_doacao, dd.nome,
+                                 DATE_FORMAT(d.data_doacao, '%d/%m/%Y') AS data_formatada
                                  FROM doacao d 
                                  JOIN doador dd ON d.id_doador = dd.idDoador 
                                  JOIN funcionario f ON d.id_banco = f.id_banco 
@@ -65,7 +86,8 @@ if (autenticado()) {
                 $stmt = $conn->prepare($sql_donacoes);
                 $stmt->execute([':id_funcionario' => $id]);
             } else {
-                $sql_donacoes = "SELECT d.id_doacao, d.data_doacao, dd.nome 
+                $sql_donacoes = "SELECT d.id_doacao, d.data_doacao, dd.nome,
+                                 DATE_FORMAT(d.data_doacao, '%d/%m/%Y') AS data_formatada 
                                  FROM doacao d 
                                  JOIN doador dd ON d.id_doador = dd.idDoador 
                                  JOIN funcionario f ON d.id_banco = f.id_banco 
@@ -144,8 +166,8 @@ if (autenticado()) {
                 ?>
                                 <div style="border: solid black 3px; height: 290px; width: 150px; border-radius: 10%; text-align: center; margin: 1em;">
                                     <h1><i class="bi bi-droplet"></i></h1>
+                                    <h5 class="fw-normal"> Nome: <?= $row['nome_doador'] ?></h5>
                                     <h5 class="fw-normal"><?= $row['data_formatada'] ?></h5>
-                                    <br><br>
                                     <p><a class="btn btn-outline-danger" href="info-doacao.php?id=<?= $id ?>&id_doacao=<?= $row['id_doacao'] ?>">DETALHAR &raquo;</a></p>
                                 </div>
                             <?php
@@ -154,6 +176,7 @@ if (autenticado()) {
                                 <div style="border: solid black 3px; height: 290px; width: 150px; border-radius: 10%; text-align: center; margin: 1em;">
                                     <h1><i class="bi bi-droplet"></i></h1>
                                     <h5 class="fw-normal"> Nome: <?= $row['nome'] ?></h5>
+                                    <h5 class="fw-normal"><?= $row['data_formatada'] ?></h5>
                                     <p><a class="btn btn-outline-danger" href="info-doacao.php?id=<?= $id ?>&id_doacao=<?= $row['id_doacao'] ?>">DETALHAR &raquo;</a></p>
                                 </div>
                         <?php

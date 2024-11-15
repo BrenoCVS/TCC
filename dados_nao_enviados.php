@@ -21,5 +21,5 @@ $errorArray = $stmt->errorInfo();
 
 
     <?php
-    require "footer_volta_inicio.php";
+    require "footer.php";
     ?>

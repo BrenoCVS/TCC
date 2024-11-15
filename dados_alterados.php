@@ -2,7 +2,7 @@
 session_start();
 $header = 0;
 require "logica-autenticacao.php";
-require "header.php";
+require "header2.php";
 if (autenticado()) {
     $id = filter_input(INPUT_GET, 'id', FILTER_SANITIZE_SPECIAL_CHARS);
 
@@ -19,6 +19,16 @@ if (autenticado()) {
                 <h4>Dados de doador alterados com sucesso!</h4>
 
             </div>
+            <br><br>
+            <a href="login_sucesso.php?id=<?= $id ?>" class="link-danger">
+                <button type="button" class="btn btn-danger">
+                    <p class="float-end">
+
+                        Voltar para a página inicial
+
+                    </p>
+                </button>
+            </a>
         </div>
 
 
@@ -26,5 +36,5 @@ if (autenticado()) {
 } else {
     redireciona();
 }
-require "footer_volta_login.php";
+require "footer.php";
     ?>
